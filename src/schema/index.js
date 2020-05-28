@@ -9,6 +9,7 @@ module.exports = buildSchema(`
         subcategories: [Category!]!
     }
     type Product {
+        _id: ID!
         productId: String!
         title: String!
         imageUrl: String!
@@ -20,6 +21,7 @@ module.exports = buildSchema(`
         _id:ID!
         email:String!
         password:String
+        favourites: [Product!]
     }
 
     type AuthData {
@@ -39,10 +41,12 @@ module.exports = buildSchema(`
         specialOfferProducts:[Product!]!
         search(query:String!):[Product!]!
         login(email:String!, password:String!): AuthData!
+        favourites:[Product!]
     }
 
     type RootMutation {
         createUser(userInput: UserInput): User
+        addToFavourites(_id: ID!): Product
     }
 
     schema {

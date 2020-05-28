@@ -9,6 +9,12 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	favourites: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Product",
+		},
+	],
 });
 
 module.exports = mongoose.model("User", userSchema);

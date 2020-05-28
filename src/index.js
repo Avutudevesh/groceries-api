@@ -4,10 +4,11 @@ const graphQLHttp = require("express-graphql");
 const mongoose = require("mongoose");
 const schema = require("./schema");
 const resolvers = require("./resolvers");
+const auth = require("./middlewares/auth");
 
 const app = express();
 app.use(bodyParser.json());
-
+app.use(auth);
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
