@@ -18,6 +18,8 @@ module.exports = buildSchema(`
     type RootQuery {
         categories: [Category]!
         categoryProducts(departmentId:Int!, aisleId:Int!, shelfId:Int): [Product!]!
+        specialOfferProducts:[Product!]!
+        search(query:String!):[Product!]!
     }
 
     schema {
