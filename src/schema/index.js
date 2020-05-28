@@ -8,8 +8,16 @@ module.exports = buildSchema(`
         image: String!
         subcategories: [Category!]!
     }
+    type Product {
+        productId: String!
+        title: String!
+        imageUrl: String!
+        newPrice: String!
+        quantity: String!
+    }
     type RootQuery {
         categories: [Category]!
+        categoryProducts(departmentId:Int!, aisleId:Int!, shelfId:Int): [Product!]!
     }
 
     schema {
