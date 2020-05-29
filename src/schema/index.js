@@ -42,11 +42,13 @@ module.exports = buildSchema(`
         search(query:String!):[Product!]!
         login(email:String!, password:String!): AuthData!
         favourites:[Product!]
+        basket: [Product!]
     }
 
     type RootMutation {
         createUser(userInput: UserInput): User
         addToFavourites(_id: ID!): Product
+        addToBasket(_id:ID!): [Product!]
     }
 
     schema {
