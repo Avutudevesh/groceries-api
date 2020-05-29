@@ -6,6 +6,8 @@ module.exports = buildSchema(`
         id: Int!
         name: String!
         image: String!
+        filterImage: String!
+        iconImage: String!
         subcategories: [Category!]!
     }
     type Product {
@@ -59,8 +61,10 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
+        departments: [Category!]!
+        subcategories(id:ID!): [Category!]!
         categories: [Category]!
-        categoryProducts(departmentId:Int!, aisleId:Int!, shelfId:Int): [Product!]!
+        categoryProducts(departmentId:Int, aisleId:Int, shelfId:Int): [Product!]!
         specialOfferProducts:[Product!]!
         search(query:String!):[Product!]!
         login(email:String!, password:String!): AuthData!

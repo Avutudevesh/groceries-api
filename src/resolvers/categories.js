@@ -20,4 +20,22 @@ module.exports = {
 			console.log(err);
 		}
 	},
+	departments: async () => {
+		try {
+			const categories = await Category.find({ level: 1 });
+			return categories;
+		} catch (err) {
+			console.log(err);
+		}
+	},
+	subcategories: async (args) => {
+		try {
+			const categories = await Category.findById(args.id).populate(
+				"subcategories"
+			);
+			return categories.subcategories;
+		} catch (err) {
+			console.log(err);
+		}
+	},
 };
