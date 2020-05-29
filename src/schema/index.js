@@ -19,9 +19,29 @@ module.exports = buildSchema(`
 
     type User {
         _id:ID!
+        name:String!
         email:String!
         password:String
         favourites: [Product!]
+        basket: [Product!]
+        phone: String!
+        address: Address!
+    }
+
+    type Address {
+        line1: String!
+        line2: String
+        city: String!
+        state: String!
+        pincode:String!
+    }
+
+    input AddressInput {
+        line1: String!
+        line2: String
+        city: String!
+        state: String!
+        pincode:String!
     }
 
     type AuthData {
@@ -31,8 +51,11 @@ module.exports = buildSchema(`
     }
 
     input UserInput {
+        name: String!
         email: String!
         password: String!
+        phone:String!
+        address: AddressInput!
     }
 
     type RootQuery {

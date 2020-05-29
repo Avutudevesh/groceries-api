@@ -3,7 +3,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-	createUser: async ({ userInput: { email, password } }) => {
+	createUser: async ({
+		userInput: { name, email, password, phone, address },
+	}) => {
 		try {
 			const user = await User.findOne({ email });
 			if (user) {
@@ -11,8 +13,11 @@ module.exports = {
 			}
 			const hashedPassword = await bcrypt.hash(password, 12);
 			const newUser = new User({
+				name,
 				email,
 				password: hashedPassword,
+				phone,
+				address,
 			});
 			const result = await newUser.save();
 
