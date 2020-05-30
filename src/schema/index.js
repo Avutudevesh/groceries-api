@@ -25,9 +25,14 @@ module.exports = buildSchema(`
         email:String!
         password:String
         favourites: [Product!]
-        basket: [Product!]
+        basket: [ProductItem!]
         phone: String!
         address: Address!
+    }
+
+    type ProductItem {
+        quantity: Int!
+        product: Product!
     }
 
     type Address {
@@ -60,6 +65,15 @@ module.exports = buildSchema(`
         address: AddressInput!
     }
 
+    input ProductItemInput {
+        _id:ID!
+        quantity:Int!
+    }
+
+    type EmptyBasketMessage{
+        success:Boolean!
+    }
+
     type RootQuery {
         departments: [Category!]!
         subcategories(id:ID!): [Category!]!
@@ -69,13 +83,14 @@ module.exports = buildSchema(`
         search(query:String!):[Product!]!
         login(email:String!, password:String!): AuthData!
         favourites:[Product!]
-        basket: [Product!]
+        basket: [ProductItem!]
     }
 
     type RootMutation {
         createUser(userInput: UserInput): AuthData!
         addToFavourites(_id: ID!): Product
-        addToBasket(_id:ID!): [Product!]
+        updateBasket(item:ProductItemInput!): [ProductItem!]
+        emptyBasket: EmptyBasketMessage!
     }
 
     schema {
