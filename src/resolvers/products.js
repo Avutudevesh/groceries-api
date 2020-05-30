@@ -8,4 +8,12 @@ module.exports = {
 			console.log(err);
 		}
 	},
+	search: async (args) => {
+		try {
+			const products = await Product.find({ $text: { $search: args.query } });
+			return products;
+		} catch (err) {
+			console.log(err);
+		}
+	},
 };

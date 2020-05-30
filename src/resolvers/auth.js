@@ -20,8 +20,15 @@ module.exports = {
 				address,
 			});
 			const result = await newUser.save();
+			const token = jwt.sign(
+				{ userId: result._doc._id, email: result._doc.email },
+				process.env.TOKEN_SECRET,
+				{
+					expiresIn: "1h",
+				}
+			);
 
-			return { ...result._doc, password: null };
+			return { userId: result._doc._id, token, tokenExpiration: 1 };
 		} catch (err) {
 			throw err;
 		}
