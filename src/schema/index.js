@@ -88,7 +88,8 @@ module.exports = buildSchema(`
 
     type RootMutation {
         createUser(userInput: UserInput): AuthData!
-        addToFavourites(_id: ID!): Product
+        addToFavourites(_id: ID!): [Product!]
+        removeFromFavourites(_id: ID!): [Product!]
         updateBasket(item:ProductItemInput!): [ProductItem!]
         emptyBasket: EmptyBasketMessage!
     }
