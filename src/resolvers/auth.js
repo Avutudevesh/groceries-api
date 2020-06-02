@@ -28,7 +28,12 @@ module.exports = {
 				}
 			);
 
-			return { userId: result._doc._id, token, tokenExpiration: 1 };
+			return {
+				userId: result._doc._id,
+				token,
+				tokenExpiration: 1,
+				account: result._doc,
+			};
 		} catch (err) {
 			throw err;
 		}
@@ -49,6 +54,42 @@ module.exports = {
 				expiresIn: "1h",
 			}
 		);
-		return { userId: user._doc._id, token, tokenExpiration: 1 };
+		return { userId: user._doc._id, token, tokenExpiration: 1, account: user };
+	},
+	accountDetails: async (args, req) => {
+		if (!req.isAuth) {
+			throw new Error("Unauthorized");
+		}
+		try {
+			const user = await User.findById(req.userId);
+			if (!user) {
+				throw new Error("No user found");
+			}
+			return user;
+		} catch (err) {
+			console.log(err);
+		}
+	},
+	editAccountDetails: async (
+		{ accountInput: { name, email, phone, address } },
+		req
+	) => {
+		if (!req.isAuth) {
+			throw new Error("Unauthorized");
+		}
+		try {
+			const user = await User.findById(req.userId);
+			if (!user) {
+				throw new Error("No user found");
+			}
+			user.name = name;
+			user.email = email;
+			user.phone = phone;
+			user.address = address;
+			await user.save();
+			return user;
+		} catch (err) {
+			console.log(err);
+		}
 	},
 };

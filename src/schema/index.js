@@ -55,12 +55,20 @@ module.exports = buildSchema(`
         userId: ID!
         token: String!
         tokenExpiration: Int!
+        account: User!
     }
 
     input UserInput {
         name: String!
         email: String!
         password: String!
+        phone:String!
+        address: AddressInput!
+    }
+
+    input AccountInput {
+        name: String!
+        email: String!
         phone:String!
         address: AddressInput!
     }
@@ -84,6 +92,7 @@ module.exports = buildSchema(`
         login(email:String!, password:String!): AuthData!
         favourites:[Product!]
         basket: [ProductItem!]
+        accountDetails: User!
     }
 
     type RootMutation {
@@ -92,6 +101,7 @@ module.exports = buildSchema(`
         removeFromFavourites(_id: ID!): [Product!]
         updateBasket(item:ProductItemInput!): [ProductItem!]
         emptyBasket: EmptyBasketMessage!
+        editAccountDetails(accountInput: AccountInput): User!
     }
 
     schema {
