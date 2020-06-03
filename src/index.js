@@ -27,12 +27,15 @@ app.use(
 		graphiql: true,
 	})
 );
+
+app.get("/", (req, res) => {
+	res.send("Server running, visit /graphql route for graphql interface");
+});
 const MONGOOSE_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@groceries-cluster-omlgs.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 mongoose
 	.connect(MONGOOSE_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-	.then(() => {
-		app.listen(3000, () => {
-			console.log("Server running");
-		});
-	})
 	.catch((err) => console.log(err));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+	console.log("Server running");
+});
